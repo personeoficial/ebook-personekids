@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Start-Process \"c:\\\\Users\\\\Andre Santos\\\\Projetos\\\\LP-Ebook - Entenda seu Filho\\\\index.html\")",
+      "Read(//c/Users/Andre Santos/Downloads/**)"
+    ]
+  }
+}
