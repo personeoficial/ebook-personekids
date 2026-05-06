@@ -662,6 +662,8 @@
       50%       { box-shadow: 0 0 0 6px rgba(196,138,58,0.22), 0 4px 16px rgba(196,138,58,0.25); }
     }
     .carousel-arrow.hint { opacity: 1 !important; animation: arrowPulse 1.7s ease-in-out infinite; }
+    #arrowNext { opacity: 1 !important; animation: arrowPulse 1.7s ease-in-out infinite; }
+    #arrowNext:disabled { opacity: 0.18 !important; animation: none; }
     .tipo-pill.hint      { animation: pillPulse  2s   ease-in-out infinite; }
     .carousel-dots {
       display: flex;
@@ -759,49 +761,93 @@
       margin-bottom: 5px;
     }
 
-    /* ── SETÊNIOS ── */
-    .setenios-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      border: 1px solid var(--cream-dark);
-      border-radius: 18px;
-      overflow: hidden;
-      background: var(--white);
-      box-shadow: var(--shadow);
-    }
-    .setenio-card {
-      padding: 48px 36px;
-      border-right: 1px solid var(--cream-dark);
+    /* ── SETÊNIOS — TIMELINE ── */
+    .timeline {
       position: relative;
-      overflow: hidden;
-      transition: background 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 680px;
+      margin: 0 auto;
     }
-    .setenio-card:last-child { border-right: none; }
-    .setenio-card:hover { background: rgba(196,138,58,0.03); }
-    .setenio-card::before {
+    .timeline::before {
       content: '';
       position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--honey), var(--honey-light));
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.4s ease;
+      left: 36px;
+      top: 18px;
+      bottom: 18px;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--honey), var(--honey-dark));
+      border-radius: 2px;
+      opacity: 0.35;
     }
-    .setenio-card:hover::before { transform: scaleX(1); }
-    .setenio-num-bg {
+    .tl-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 28px;
+      padding: 10px 0 36px;
+      position: relative;
+    }
+    .tl-item:last-child { padding-bottom: 0; }
+    .tl-dot {
+      flex-shrink: 0;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: var(--white);
+      border: 2px solid var(--honey);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 2px 12px rgba(196,138,58,0.15);
+    }
+    .tl-dot-num {
       font-family: 'Playfair Display', serif;
-      font-size: 80px;
+      font-size: 22px;
       font-weight: 900;
       color: var(--honey);
-      opacity: 0.1;
       line-height: 1;
-      position: absolute;
-      top: 20px; right: 20px;
     }
-    .setenio-fase { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--honey); margin-bottom: 10px; }
-    .setenio-title { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 700; color: var(--text-dark); margin-bottom: 14px; }
-    .setenio-desc { font-size: 15px; color: var(--text-mid); line-height: 1.75; }
+    .tl-dot-label {
+      font-size: 8px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--honey-dark);
+      text-transform: uppercase;
+      line-height: 1;
+      margin-top: 2px;
+    }
+    .tl-body {
+      padding-top: 14px;
+    }
+    .tl-fase {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--honey);
+      margin-bottom: 6px;
+    }
+    .tl-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+    .tl-desc {
+      font-size: 15px;
+      color: var(--text-mid);
+      line-height: 1.7;
+    }
+    @media (max-width: 600px) {
+      .timeline::before { left: 30px; }
+      .tl-dot { width: 60px; height: 60px; }
+      .tl-dot-num { font-size: 18px; }
+    }
 
     /* ── DEPOIMENTOS ── */
     .depo-section-header { text-align: center; margin-bottom: 56px; }
@@ -1075,9 +1121,7 @@
       .hero-grid { grid-template-columns: 1fr; gap: 48px; }
       #hero { min-height: auto; padding: 72px 0; }
       .personens-layout { grid-template-columns: 1fr; gap: 40px; }
-      .setenios-grid { grid-template-columns: 1fr; }
-      .setenio-card { border-right: none; border-bottom: 1px solid var(--cream-dark); }
-      .setenio-card:last-child { border-bottom: none; }
+      /* timeline já é vertical no mobile */
       .garantia-box { grid-template-columns: 1fr; text-align: center; padding: 36px 28px; gap: 20px; }
     }
     @media (max-width: 768px) {
@@ -1378,7 +1422,7 @@
       <div class="conteudo-card reveal">
         <div class="conteudo-num">01</div>
         <div>
-          <div class="conteudo-title">O Mundo dos Personês</div>
+          <div class="conteudo-title">As personalidades dos filhos - Personês</div>
           <p class="conteudo-desc">O que são, como se formam, os 3 instintos e os setênios de Rudolf Steiner.</p>
         </div>
       </div>
@@ -1400,7 +1444,7 @@
       <div class="conteudo-card reveal">
         <div class="conteudo-num">04</div>
         <div>
-          <div class="conteudo-title">Você Também é um Personê</div>
+          <div class="conteudo-title">Você Também vai se conhecer</div>
           <p class="conteudo-desc">Como o seu tipo influencia a criação. O espelho entre pais e filhos de tipos iguais e opostos.</p>
         </div>
       </div>
@@ -1420,27 +1464,46 @@
   <div class="container">
     <div class="reveal" style="text-align:center; margin-bottom:56px;">
       <span class="section-label" style="justify-content:center;">Fases da vida</span>
-      <h2 class="section-title">Cada fase pede uma presença diferente</h2>
+      <h2 class="section-title">Ao longo da vida, os filhos precisam de uma postura diferente dos pais.</h2>
     </div>
-    <div class="setenios-grid reveal">
-      <div class="setenio-card">
-        <span class="setenio-num-bg">01</span>
-        <div class="setenio-fase">0 a 7 anos</div>
-        <h3 class="setenio-title">As raízes</h3>
-        <p class="setenio-desc">A criança aprende por imitação e presença. O que importa não é o que você ensina — é o que você demonstra.</p>
+    <div class="timeline reveal">
+
+      <div class="tl-item">
+        <div class="tl-dot">
+          <span class="tl-dot-num">01</span>
+          <span class="tl-dot-label">fase</span>
+        </div>
+        <div class="tl-body">
+          <div class="tl-fase">0 a 7 anos</div>
+          <h3 class="tl-title">As raízes</h3>
+          <p class="tl-desc">A criança aprende por imitação. O que importa não é o que você ensina — é o que você demonstra.</p>
+        </div>
       </div>
-      <div class="setenio-card">
-        <span class="setenio-num-bg">02</span>
-        <div class="setenio-fase">7 a 14 anos</div>
-        <h3 class="setenio-title">O mundo social</h3>
-        <p class="setenio-desc">A criança sai do casulo familiar. O pertencimento é tudo. Ela descobre quem é fora de casa.</p>
+
+      <div class="tl-item">
+        <div class="tl-dot">
+          <span class="tl-dot-num">02</span>
+          <span class="tl-dot-label">fase</span>
+        </div>
+        <div class="tl-body">
+          <div class="tl-fase">7 a 14 anos</div>
+          <h3 class="tl-title">O mundo social</h3>
+          <p class="tl-desc">A criança sai do casulo familiar. O pertencimento é tudo. Ela descobre quem é fora de casa.</p>
+        </div>
       </div>
-      <div class="setenio-card">
-        <span class="setenio-num-bg">03</span>
-        <div class="setenio-fase">14 a 21 anos</div>
-        <h3 class="setenio-title">A identidade</h3>
-        <p class="setenio-desc">O jovem questiona tudo. Precisa de autonomia com vínculo — separar-se, mas saber que tem um lugar para voltar.</p>
+
+      <div class="tl-item">
+        <div class="tl-dot">
+          <span class="tl-dot-num">03</span>
+          <span class="tl-dot-label">fase</span>
+        </div>
+        <div class="tl-body">
+          <div class="tl-fase">14 a 21 anos</div>
+          <h3 class="tl-title">A identidade</h3>
+          <p class="tl-desc">O jovem questiona tudo. Precisa de autonomia com vínculo — separar-se, mas saber que tem um lugar para voltar.</p>
+        </div>
       </div>
+
     </div>
   </div>
 </section>
